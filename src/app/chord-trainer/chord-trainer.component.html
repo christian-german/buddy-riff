@@ -1,0 +1,54 @@
+<div class="trainer-container">
+    <h2>Chord Trainer</h2>
+
+    <div class="controls">
+        <button (click)="startTraining()" [disabled]="isTraining" class="control-button start">Start</button>
+        <button (click)="pauseTraining()" [disabled]="!isTraining || isPaused" class="control-button pause">Pause</button>
+        <button (click)="resumeTraining()" [disabled]="!isTraining || !isPaused" class="control-button resume">Resume</button>
+        <button (click)="stopTraining()" [disabled]="!isTraining" class="control-button stop">Stop</button>
+    </div>
+
+    <!-- Note Legend -->
+    <div class="note-legend">
+        <h4>Note Colors</h4>
+        <div class="legend-item">
+            <div class="legend-color root"></div>
+            <span>Root Note</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color third"></div>
+            <span>Third</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color fifth"></div>
+            <span>Fifth</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color other"></div>
+            <span>Other Notes</span>
+        </div>
+    </div>
+
+    <div class="time-control">
+        <label for="delaySlider">Delay time: {{ delayTime }} seconds</label>
+        <input
+                [(ngModel)]="delayTime"
+                id="delaySlider"
+                max="20"
+                min="1"
+                step="1"
+                type="range">
+    </div>
+
+    <div *ngIf="isTraining" class="chord-display">
+        <div *ngIf="!showSolution" class="progress-bar-container">
+            <div [style.width.%]="progressValue" class="progress-bar"></div>
+        </div>
+
+        <div class="chord-name">{{ currentChord }}</div>
+
+        <div *ngIf="showSolution" class="chord-diagram">
+            <app-fretboard-diagram [diagramName]="currentChord" diagramType="chord"></app-fretboard-diagram>
+        </div>
+    </div>
+</div>

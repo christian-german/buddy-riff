@@ -1,0 +1,105 @@
+<div class="library-container">
+    <h2>Chord Library</h2>
+
+    <div class="filter-controls">
+        <div class="search-box">
+            <input
+                type="text"
+                [(ngModel)]="filterText"
+                (input)="applyFilter()"
+                placeholder="Filter chords and triads..."
+                class="filter-input">
+        </div>
+
+        <div class="toggle-controls">
+            <label class="toggle-label">
+                <input type="checkbox" [checked]="showChords" (change)="toggleChords()">
+                Show Chords
+            </label>
+            <label class="toggle-label">
+                <input type="checkbox" [checked]="showTriads" (change)="toggleTriads()">
+                Show Triads
+            </label>
+        </div>
+
+        <div class="inversion-filter" *ngIf="showTriads">
+            <label for="inversion-select">Inversion Filter:</label>
+            <select
+                id="inversion-select"
+                [(ngModel)]="selectedInversion"
+                (change)="changeInversionFilter(selectedInversion)"
+                class="inversion-select">
+                <option *ngFor="let option of inversionOptions" [value]="option">{{ option }}</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Note Legend -->
+    <div class="note-legend">
+        <h4>Note Colors</h4>
+        <div class="legend-item">
+            <div class="legend-color root"></div>
+            <span>Root Note</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color third"></div>
+            <span>Third</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color fifth"></div>
+            <span>Fifth</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color other"></div>
+            <span>Other Notes</span>
+        </div>
+    </div>
+
+    <!-- Chords Section -->
+    <div *ngIf="showChords && filteredChords.length > 0" class="section">
+        <h3>Chords</h3>
+        <div class="table-container">
+            <table class="diagrams-table">
+                <tbody>
+                    <tr *ngFor="let row of chordRows" class="diagram-row">
+                        <td *ngFor="let chordKey of row" class="diagram-cell">
+                            <div class="diagram-item">
+                                <app-fretboard-diagram
+                                    [diagramName]="chordKey"
+                                    diagramType="chord">
+                                </app-fretboard-diagram>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Triads Section -->
+    <div *ngIf="showTriads && filteredTriads.length > 0" class="section">
+        <h3>Triads</h3>
+        <div class="table-container">
+            <table class="diagrams-table">
+                <tbody>
+                    <tr *ngFor="let row of triadRows" class="diagram-row">
+                        <td *ngFor="let triadKey of row" class="diagram-cell">
+                            <div class="diagram-item">
+                                <app-fretboard-diagram
+                                    [diagramName]="triadKey"
+                                    diagramType="triad"
+                                    [selectedInversion]="selectedInversion">
+                                </app-fretboard-diagram>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- No results message -->
+    <div *ngIf="(!showChords || filteredChords.length === 0) && (!showTriads || filteredTriads.length === 0)" class="no-results">
+        <p>No chords or triads match your filter criteria.</p>
+    </div>
+</div>

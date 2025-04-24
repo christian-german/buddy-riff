@@ -1,0 +1,124 @@
+<div class="fretboard-diagram-container">
+    <h3>{{ diagramName }}</h3>
+
+    <!-- Single diagram mode (for chords) -->
+    <div *ngIf="!hasInversions" class="single-diagram">
+        <div class="fretboard">
+            <!-- Fret label on the left -->
+            <div *ngIf="baseFret > 1" class="fret-label">
+                {{ baseFret }}fr
+            </div>
+
+            <!-- Strings -->
+            <div class="strings">
+                <div *ngFor="let _ of [0,1,2,3,4,5]" class="string"></div>
+            </div>
+
+            <!-- Frets -->
+            <div class="frets">
+                <div *ngFor="let _ of [0,1,2,3,4]" class="fret"></div>
+            </div>
+
+            <!-- Positions -->
+            <div class="positions">
+                <div
+                        *ngFor="let position of currentPositions"
+                        [style.left.%]="getStringPosition(position.string)"
+                        [style.top.%]="getFretPosition(position.fret)"
+                        class="position">
+                    <div [class]="getNoteClass(position)">{{ position.finger || '' }}</div>
+                </div>
+            </div>
+
+            <!-- Muted strings -->
+            <div class="muted-strings">
+                <div
+                        *ngFor="let string of mutedStrings"
+                        [style.left.%]="getStringPosition(string)"
+                        class="muted">
+                    ✕
+                </div>
+            </div>
+
+            <!-- Open strings -->
+            <div class="open-strings">
+                <div
+                        *ngFor="let string of openStrings"
+                        [style.left.%]="getStringPosition(string)"
+                        class="open">
+                    ○
+                </div>
+            </div>
+
+            <!-- Barre chords -->
+            <div *ngFor="let barre of barres" [style.left.%]="getStringPosition(barre.toString)"
+                 [style.top.%]="getFretPosition(barre.fret)"
+                 [style.width.%]="getBarreWidth(barre.fromString, barre.toString)"
+                 class="barre">
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiple inversions mode (for triads) -->
+    <div *ngIf="hasInversions" class="inversions-container">
+        <div *ngFor="let inversion of currentInversions"
+             class="inversion"
+             [class.playing]="currentlyPlayingInversion === inversion">
+            <h4>{{ inversion.inversionType }}</h4>
+            <div class="fretboard">
+                <!-- Fret label on the left -->
+                <div *ngIf="inversion.baseFret > 1" class="fret-label">
+                    {{ inversion.baseFret }}fr
+                </div>
+
+                <!-- Strings -->
+                <div class="strings">
+                    <div *ngFor="let _ of [0,1,2,3,4,5]" class="string"></div>
+                </div>
+
+                <!-- Frets -->
+                <div class="frets">
+                    <div *ngFor="let _ of [0,1,2,3,4]" class="fret"></div>
+                </div>
+
+                <!-- Positions -->
+                <div class="positions">
+                    <div
+                            *ngFor="let position of inversion.positions"
+                            [style.left.%]="getStringPosition(position.string)"
+                            [style.top.%]="getFretPosition(position.fret)"
+                            class="position">
+                        <div [class]="getNoteClass(position, inversion)">{{ position.finger || '' }}</div>
+                    </div>
+                </div>
+
+                <!-- Muted strings -->
+                <div class="muted-strings">
+                    <div
+                            *ngFor="let string of getMutedStrings(inversion)"
+                            [style.left.%]="getStringPosition(string)"
+                            class="muted">
+                        ✕
+                    </div>
+                </div>
+
+                <!-- Open strings -->
+                <div class="open-strings">
+                    <div
+                            *ngFor="let string of getOpenStrings(inversion)"
+                            [style.left.%]="getStringPosition(string)"
+                            class="open">
+                        ○
+                    </div>
+                </div>
+
+                <!-- Barre chords (if any) -->
+                <div *ngFor="let barre of inversion.barres || []" [style.left.%]="getStringPosition(barre.toString)"
+                     [style.top.%]="getFretPosition(barre.fret)"
+                     [style.width.%]="getBarreWidth(barre.fromString, barre.toString)"
+                     class="barre">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

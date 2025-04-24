@@ -1,0 +1,23 @@
+<div class="burger-menu-container">
+    <button (click)="toggleMenu()" class="burger-button">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </button>
+
+    <div (click)="closeMenu()" *ngIf="isMenuOpen" class="menu-overlay"></div>
+
+    <div [class.open]="isMenuOpen" class="menu-content">
+        <div class="menu-header">
+            <h2>Menu</h2>
+            <button (click)="closeMenu()" class="close-button">×</button>
+        </div>
+        <nav class="menu-nav">
+            <ul>
+                <li><a (click)="closeMenu()" routerLink="/chord-trainer">Chord Trainer</a></li>
+                <li><a (click)="closeMenu()" routerLink="/triad-trainer">Triad Trainer</a></li>
+                <li><a (click)="closeMenu()" routerLink="/chord-library">Chord Library</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+.app-container {
+    font-family: Arial, sans-serif;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+header {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 0;
+    width: 100%;
+    position: relative;
+}
+
+.burger-menu-position {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 10px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    padding-left: 60px; /* Add padding to prevent overlap with burger menu */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #333;
+    margin: 0;
+}

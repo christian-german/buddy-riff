@@ -1,0 +1,155 @@
+.fretboard-diagram-container {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    max-width: 800px;
+}
+
+.inversions-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.inversion {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+.inversion.playing {
+    border: 2px solid #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    transform: scale(1.05);
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+h4 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+    color: #4CAF50;
+}
+
+.fretboard {
+    position: relative;
+    width: 200px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.strings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.string {
+    width: 2px;
+    height: 100%;
+    background-color: #999;
+}
+
+.frets {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fret {
+    width: 100%;
+    height: 2px;
+    background-color: #999;
+}
+
+.positions {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.position {
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Note type colors */
+.dot.root {
+    background-color: #E53935; /* Red for root notes */
+}
+
+.dot.third {
+    background-color: #1E88E5; /* Blue for third notes */
+}
+
+.dot.fifth {
+    background-color: #43A047; /* Green for fifth notes */
+}
+
+.dot.other {
+    background-color: #757575; /* Gray for other notes */
+}
+
+.muted-strings {
+    position: absolute;
+    width: 100%;
+    top: -30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.open-strings {
+    display: none; /* Hide open strings */
+}
+
+.muted, .open {
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+.barre {
+    position: absolute;
+    height: 30px;
+    background-color: rgba(76, 175, 80, 0.7); /* Keep the default green for barres */
+    border-radius: 15px;
+    transform: translate(-7%, -50%);
+}
+
+.fret-label {
+    position: absolute;
+    left: -30px;
+    top: 20%;
+    font-weight: bold;
+    font-size: 12px;
+}
